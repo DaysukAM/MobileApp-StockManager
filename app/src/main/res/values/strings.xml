@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StockManagerApp</string>
+    <string name="welcome_msg">Bienvenue</string>
+    <string name="button_list">Voir le matériel</string>
+</resources>
