@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity {
 
         JsonObjectRequest objectRequest=new JsonObjectRequest(
         Request.Method.GET,
-                URL,
+                "http://stockmanager.test:8080/materials",
                 null,
                 new Response.Listener<JSONObject>(){
                     @Override
