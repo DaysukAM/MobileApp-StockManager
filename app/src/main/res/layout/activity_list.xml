@@ -20,13 +20,26 @@
 
     <TextView
         android:id="@+id/count"
-        android:layout_width="200dp"
+        android:layout_width="283dp"
         android:layout_height="69dp"
         android:text="@string/count"
         android:textSize="50dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/buttoncount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintVertical_bias="0.492"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/backbutton"
+        android:layout_width="192dp"
+        android:layout_height="75dp"
+        android:text="Retour"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttoncount" />
 </androidx.constraintlayout.widget.ConstraintLayout>
