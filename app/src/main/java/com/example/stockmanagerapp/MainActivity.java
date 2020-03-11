@@ -11,13 +11,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button play = findViewById(R.id.play);
+        Button list = findViewById(R.id.list);
 
-        play.setOnClickListener(new View.OnClickListener() {
+        list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent otherActivity = new Intent(getApplicationContext(), ListActivity.class);

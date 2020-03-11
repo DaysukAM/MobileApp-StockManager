@@ -9,62 +9,62 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListActivity extends AppCompatActivity {
 
-    private TextView count;
-    private Button buttoncount;
     private Button backbutton;
-    private int clicks = 0;
+    private TextView textViewResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        String URL="http://stockmanager.test:8080/materials";
+        textViewResult = findViewById(R.id.textViewResult);
 
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.66.24.112/app/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        JsonObjectRequest objectRequest=new JsonObjectRequest(
-        Request.Method.GET,
-                "http://stockmanager.test:8080/materials",
-                null,
-                new Response.Listener<JSONObject>(){
-                    @Override
-                    public void  onResponse(JSONObject response) {
-                        Log.e("Rest Response", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response", error.toString());
-                    }
+        StockManagerApi stockManagerApi = retrofit.create(StockManagerApi.class);
+
+        Call<List<Materials>> call = stockManagerApi.getMaterials();
+
+        call.enqueue(new Callback<List<Materials>>() {
+            @Override
+            public void onResponse(Call<List<Materials>> call, Response<List<Materials>> response) {
+                if(!response.isSuccessful()){
+                    textViewResult.setText("code: " + response.code());
                 }
-        );
+                List<Materials> materials = response.body();
 
-        requestQueue.add(objectRequest);
+                for (Materials material : materials){
+                    String content = "";
+                    content += "id" + material.getId() + "\n";
+                    content += "name" + material.getName() + "\n";
+                    content += "desc" + material.getDesc() + "\n";
 
-        this.count = (TextView) findViewById(R.id.count);
-        this.buttoncount = (Button) findViewById(R.id.buttoncount);
+                    textViewResult.append(content);
 
-        buttoncount.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            clicks++;
-            count.setText("clicks: " + clicks);
-        }
-    });
+                    Log.e(content, content);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Materials>> call, Throwable t) {
+                textViewResult.setText(t.getMessage());
+            }
+        });
+
+
         this.backbutton = (Button) findViewById(R.id.backbutton);
 
         backbutton.setOnClickListener(new View.OnClickListener() {
