@@ -29,7 +29,7 @@ public class ListActivity extends AppCompatActivity {
         textViewResult = findViewById(R.id.textViewResult);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.66.24.112/app/")
+                .baseUrl("http://10.66.24.112/StockManager/server.php/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -46,14 +46,13 @@ public class ListActivity extends AppCompatActivity {
                 List<Materials> materials = response.body();
 
                 for (Materials material : materials){
-                    String content = "";
-                    content += "id" + material.getId() + "\n";
-                    content += "name" + material.getName() + "\n";
-                    content += "desc" + material.getDesc() + "\n";
+                    String data = "";
+                    data = data + "id" + material.getId() + "\n";
+                    data = data + "name" + material.getName() + "\n";
+                    data = data + ("desc" + material.getDesc() + "\n\n");
 
-                    textViewResult.append(content);
+                    textViewResult.append(data);
 
-                    Log.e(content, content);
                 }
 
             }
