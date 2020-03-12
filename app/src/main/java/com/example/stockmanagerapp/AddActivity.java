@@ -1,5 +1,6 @@
 package com.example.stockmanagerapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ public class AddActivity extends AppCompatActivity {
     EditText editDesc;
 
     Button submitButton;
+    Button buttonBack;
 
     private TextView textViewLog;
 
@@ -48,10 +50,20 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        buttonBack = (Button) findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(otherActivity);
+                finish();
+            }
+        });
+
     }
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.66.24.112/StockManager/server.php/")
+            .baseUrl("http://192.168.1.49/StockManager/server.php/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
