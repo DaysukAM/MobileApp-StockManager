@@ -6,10 +6,12 @@ public class Materials {
 
     private int id;
     private String name;
-
-    @SerializedName("body")
     private String desc;
 
+    public Materials(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+    }
 
     public int getId() {
         return id;

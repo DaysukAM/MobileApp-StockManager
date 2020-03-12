@@ -42,16 +42,17 @@ public class ListActivity extends AppCompatActivity {
             public void onResponse(Call<List<Materials>> call, Response<List<Materials>> response) {
                 if(!response.isSuccessful()){
                     textViewResult.setText("code: " + response.code());
+                    return;
                 }
                 List<Materials> materials = response.body();
 
                 for (Materials material : materials){
                     String data = "";
-                    data = data + "id" + material.getId() + "\n";
-                    data = data + "name" + material.getName() + "\n";
-                    data = data + ("desc" + material.getDesc() + "\n\n");
+                    data = data + "name: " + material.getName() + "\n";
+                    data = data + ("desc: " + material.getDesc() + "\n\n");
 
                     textViewResult.append(data);
+                    Log.d("resutat", data);
 
                 }
 
