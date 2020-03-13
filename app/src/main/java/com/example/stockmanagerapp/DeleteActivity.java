@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,9 +49,13 @@ public class DeleteActivity extends AppCompatActivity {
         });
     }
 
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.49/StockManager/server.php/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("http://10.66.24.112/StockManager/server.php/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
     StockManagerApi stockManagerApi = retrofit.create(StockManagerApi.class);

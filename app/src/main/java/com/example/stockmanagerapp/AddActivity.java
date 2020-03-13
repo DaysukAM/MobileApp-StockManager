@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,10 +64,13 @@ public class AddActivity extends AppCompatActivity {
         });
 
     }
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.49/StockManager/server.php/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("http://10.66.24.112/StockManager/server.php/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
     StockManagerApi stockManagerApi = retrofit.create(StockManagerApi.class);

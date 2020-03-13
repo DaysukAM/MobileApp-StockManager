@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.49/StockManager/server.php/")
+                .baseUrl("http://10.66.24.112/StockManager/server.php/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
