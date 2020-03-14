@@ -31,19 +31,10 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         textViewResult = findViewById(R.id.textViewResult);
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.66.24.112/StockManager/server.php/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        StockManagerApi stockManagerApi = retrofit.create(StockManagerApi.class);
-
-        Call<List<Materials>> call = stockManagerApi.getMaterials();
+        Call<List<Materials>> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getMaterials();
 
         call.enqueue(new Callback<List<Materials>>() {
             @Override

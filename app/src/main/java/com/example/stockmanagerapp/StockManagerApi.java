@@ -36,5 +36,12 @@ public interface StockManagerApi {
     @DELETE("materials/delete/{id}")
     Call<Void> deleteMaterials(@Path("id") int id);
 
+    @FormUrlEncoded
+    @POST("user/login")
+    Call<LoginResponse> userLogin(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
 
 }

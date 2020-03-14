@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,24 +65,16 @@ public class AddActivity extends AppCompatActivity {
         });
 
     }
-    Gson gson = new GsonBuilder()
-            .setLenient()
-            .create();
-
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.66.24.112/StockManager/server.php/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
-
-    StockManagerApi stockManagerApi = retrofit.create(StockManagerApi.class);
 
     private void createMaterial() {
 
         textViewLog = findViewById(R.id.textViewLog);
         Materials materials = new Materials(name, desc);
 
-
-        Call<Materials> call = stockManagerApi.createMaterial(materials);
+        Call<Materials> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .createMaterial(materials);
 
         call.enqueue(new Callback<Materials>() {
             @Override

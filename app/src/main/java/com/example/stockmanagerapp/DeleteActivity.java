@@ -49,23 +49,14 @@ public class DeleteActivity extends AppCompatActivity {
         });
     }
 
-    Gson gson = new GsonBuilder()
-            .setLenient()
-            .create();
-
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.66.24.112/StockManager/server.php/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
-
-    StockManagerApi stockManagerApi = retrofit.create(StockManagerApi.class);
-
     private void deleteMaterial() {
 
         textViewLog = findViewById(R.id.textViewLog);
 
-
-        Call<Void> call = stockManagerApi.deleteMaterials(10);
+        Call<Void> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .deleteMaterials(10);
 
         call.enqueue(new Callback<Void>() {
             @Override

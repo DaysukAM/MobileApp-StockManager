@@ -11,31 +11,22 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.regex.Pattern;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RegisterActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    private EditText editName, editMail, editPassword;
+    private String status;
+    private EditText editMail, editPassword;
     private Button submitButton;
-    private Button buttonLoginLink;
     private TextView textViewLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
 
-        editName = (EditText) findViewById(R.id.editName);
         editMail = (EditText) findViewById(R.id.editMail);
         editPassword= (EditText) findViewById(R.id.editPassword);
 
@@ -43,31 +34,17 @@ public class RegisterActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userSignUp();
-            }
-        });
-
-        buttonLoginLink = (Button) findViewById(R.id.buttonLoginLink);
-        buttonLoginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent otherActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(otherActivity);
-                finish();
+                userLogin();
             }
         });
     }
-    private void userSignUp(){
+
+    private  void userLogin(){
+
         textViewLog = findViewById(R.id.textViewLog);
-        String name = editName.getText().toString().trim();
         String email = editMail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
-        if (name.isEmpty()){
-            editName.setError("indiquez un nom");
-            editName.requestFocus();
-            return;
-        }
 
         if (email.isEmpty()){
             editMail.setError("indiquez une adresse e-mail !");
@@ -93,27 +70,34 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        Call<LoginResponse> call = RetrofitClient
+                .getInstance().getApi().userLogin(email, password);
 
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .createUser(name, email, password);
-
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    textViewLog.setText("Création de l'utilisateur " + name + " réussi");
-                if(!response.isSuccessful()) {
-                    textViewLog.setText("code: " + response.code());
-                    return;
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse loginResponse = response.body();
+                status = loginResponse.getStatus();
+                User user = loginResponse.getUser();
+                int id = user.getId();
+
+                if(status.equals("succes")){
+
+                    Global.id = id;
+                    Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(otherActivity);
+                    finish();
+
+                }else{
+                    Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                textViewLog.setText(t.getMessage());
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
             }
         });
-
     }
+
 }
