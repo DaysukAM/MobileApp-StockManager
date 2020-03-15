@@ -64,4 +64,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(otherActivity);
+        finish();
+    }
 }

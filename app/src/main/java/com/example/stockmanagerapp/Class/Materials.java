@@ -1,7 +1,5 @@
 package com.example.stockmanagerapp.Class;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Materials {
 
     private int id;
@@ -24,4 +22,10 @@ public class Materials {
     public String getDesc() {
         return desc;
     }
+
+
+@Override
+    public String toString(){
+        return name;
+}
 }

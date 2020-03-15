@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -98,18 +99,27 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    textViewLog.setText("Création de l'utilisateur " + name + " réussi");
-                if(!response.isSuccessful()) {
-                    textViewLog.setText("code: " + response.code());
-                    return;
+
+                Toast.makeText(RegisterActivity.this, "Création de l'utilisateur " + name + " réussi", Toast.LENGTH_LONG).show();
+                Intent otherActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(otherActivity);
+                finish();
                 }
-            }
+
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 textViewLog.setText(t.getMessage());
             }
         });
-
     }
+        @Override
+        public void onBackPressed() {
+            super.onBackPressed();
+
+            Intent otherActivity = new Intent(getApplicationContext(), RegisterActivity.class);
+            startActivity(otherActivity);
+            finish();
+        }
+
 }

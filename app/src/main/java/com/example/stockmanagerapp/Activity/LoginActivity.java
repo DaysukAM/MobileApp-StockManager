@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String status;
     private EditText editMail, editPassword;
-    private Button submitButton;
+    private Button submitButton, buttonBack;
     private TextView textViewLog;
 
     @Override
@@ -43,6 +43,17 @@ public class LoginActivity extends AppCompatActivity {
                 userLogin();
             }
         });
+
+        buttonBack = (Button) findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivity = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(otherActivity);
+                finish();
+            }
+        });
+
     }
 
     private  void userLogin(){
@@ -101,6 +112,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent otherActivity = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(otherActivity);
+        finish();
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.stockmanagerapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,6 +102,23 @@ public class AddActivity extends AppCompatActivity {
                 textViewLog.setText(t.getMessage());
             }
         });
-    }
 
+        buttonBack = (Button) findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(otherActivity);
+                finish();
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(otherActivity);
+        finish();
+    }
 }
