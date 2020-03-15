@@ -1,4 +1,8 @@
-package com.example.stockmanagerapp;
+package com.example.stockmanagerapp.Network;
+
+import com.example.stockmanagerapp.Class.Materials;
+import com.example.stockmanagerapp.Response.AddResponse;
+import com.example.stockmanagerapp.Response.LoginResponse;
 
 import java.util.List;
 
@@ -30,7 +34,7 @@ public interface StockManagerApi {
     );
 
     @POST("materials/create")
-    Call<Materials> createMaterial(@Body Materials materials);
+    Call<AddResponse> createMaterial(@Body Materials materials);
 
 
     @DELETE("materials/delete/{id}")

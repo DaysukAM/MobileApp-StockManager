@@ -1,8 +1,8 @@
-package com.example.stockmanagerapp;
+package com.example.stockmanagerapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,22 +11,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.stockmanagerapp.Class.Materials;
+import com.example.stockmanagerapp.R;
+import com.example.stockmanagerapp.Network.RetrofitClient;
+import com.example.stockmanagerapp.Response.AddResponse;
 
-import java.util.List;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddActivity extends AppCompatActivity {
 
-    String name;
-    String desc;
+    String name, desc, status;
     EditText editName;
     EditText editDesc;
 
@@ -71,29 +67,39 @@ public class AddActivity extends AppCompatActivity {
         textViewLog = findViewById(R.id.textViewLog);
         Materials materials = new Materials(name, desc);
 
-        Call<Materials> call = RetrofitClient
+        if (name.isEmpty()){
+            editName.setError("indiquez un nom !");
+            editName.requestFocus();
+            return;
+        }
+
+        if (desc.isEmpty()){
+            editDesc.setError("indiquez un mot de passe");
+            editDesc.requestFocus();
+            return;
+        }
+        Call<AddResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
                 .createMaterial(materials);
 
-        call.enqueue(new Callback<Materials>() {
+        call.enqueue(new Callback<AddResponse>() {
             @Override
-            public void onResponse(Call<Materials> call, Response<Materials> response) {
-                if(!response.isSuccessful()){
-                    textViewLog.setText("code: " + response.code());
-                    return;
-                }
-                Materials materialsResponse = response.body();
-                String data = "";
-                data = data + "Code: " + response.code() + "\n";
-                data = data + "name: " + materialsResponse.getName() + "\n";
-                data = data + ("desc: " + materialsResponse.getDesc() + "\n\n");
+            public void onResponse(Call<AddResponse> call, Response<AddResponse> response) {
+                AddResponse addResponse = response.body();
+                status = addResponse.getStatus();
+                if(status.equals("succes")) {
 
-                textViewLog.setText(data);
+                    Toast.makeText(AddActivity.this, addResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(otherActivity);
+                    finish();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<Materials> call, Throwable t) {
+            public void onFailure(Call<AddResponse> call, Throwable t) {
                 textViewLog.setText(t.getMessage());
             }
         });

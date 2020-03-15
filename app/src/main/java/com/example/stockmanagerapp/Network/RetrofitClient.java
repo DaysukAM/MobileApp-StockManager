@@ -1,4 +1,4 @@
-package com.example.stockmanagerapp;
+package com.example.stockmanagerapp.Network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

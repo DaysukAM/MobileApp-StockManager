@@ -1,4 +1,6 @@
-package com.example.stockmanagerapp;
+package com.example.stockmanagerapp.Response;
+
+import com.example.stockmanagerapp.Class.User;
 
 public class LoginResponse {
 

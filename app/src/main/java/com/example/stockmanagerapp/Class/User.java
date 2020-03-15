@@ -1,4 +1,4 @@
-package com.example.stockmanagerapp;
+package com.example.stockmanagerapp.Class;
 
 public class User {
 

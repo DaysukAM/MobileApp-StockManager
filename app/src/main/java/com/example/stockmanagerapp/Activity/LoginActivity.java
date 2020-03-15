@@ -1,4 +1,4 @@
-package com.example.stockmanagerapp;
+package com.example.stockmanagerapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.stockmanagerapp.Class.User;
+import com.example.stockmanagerapp.Global;
+import com.example.stockmanagerapp.Network.RetrofitClient;
+import com.example.stockmanagerapp.R;
+import com.example.stockmanagerapp.Response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,12 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (password.length() < 6){
-            editPassword.setError("indiquez un mot de passe de plus de 5 caractères ");
-            editPassword.requestFocus();
-            return;
-        }
-
         Call<LoginResponse> call = RetrofitClient
                 .getInstance().getApi().userLogin(email, password);
 
@@ -78,12 +78,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
                 status = loginResponse.getStatus();
-                User user = loginResponse.getUser();
-                int id = user.getId();
+
 
                 if(status.equals("succes")){
 
-                    Global.id = id;
+                    User user = loginResponse.getUser();
+                    int userId = user.getId();
+                    Global.id = userId;
                     Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                     Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(otherActivity);
