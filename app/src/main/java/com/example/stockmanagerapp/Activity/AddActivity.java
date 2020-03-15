@@ -63,7 +63,7 @@ public class AddActivity extends AppCompatActivity {
 
     private void createMaterial() {
 
-        textViewLog = findViewById(R.id.textViewLog);
+
         Materials materials = new Materials(name, desc);
 
         if (name.isEmpty()){

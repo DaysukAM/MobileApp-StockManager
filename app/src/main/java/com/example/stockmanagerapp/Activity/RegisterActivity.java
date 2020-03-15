@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
     private void userSignUp(){
-        textViewLog = findViewById(R.id.textViewLog);
+
         String name = editName.getText().toString().trim();
         String email = editMail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();

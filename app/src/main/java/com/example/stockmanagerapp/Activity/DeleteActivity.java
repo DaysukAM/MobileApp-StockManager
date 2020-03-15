@@ -44,6 +44,7 @@ public class DeleteActivity extends AppCompatActivity {
                 .getApi()
                 .getMaterials();
         List<Materials> MaterialList = new ArrayList<>();
+        MaterialList.add(new Materials("selectionnez un materiel","test"));
         call.enqueue(new Callback<List<Materials>>() {
             @Override
             public void onResponse(Call<List<Materials>> call, Response<List<Materials>> response) {
@@ -89,10 +90,9 @@ public class DeleteActivity extends AppCompatActivity {
 
     private void deleteMaterial(Materials material) {
 
-        System.out.println(material);
         int id = material.getId();
         String name = material.getName();
-        textViewLog = findViewById(R.id.textViewLog);
+
 
         Call<Void> call = RetrofitClient
                 .getInstance()
@@ -102,10 +102,17 @@ public class DeleteActivity extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(DeleteActivity.this, name + "correctement supprimé", Toast.LENGTH_LONG).show();
-                Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(otherActivity);
-                finish();
+                if(name.equals("selectionnez un materiel")){
+                    Toast.makeText(DeleteActivity.this, "Veuillez selectionner un matériel", Toast.LENGTH_LONG).show();
+                    Intent otherActivity = new Intent(getApplicationContext(), DeleteActivity.class);
+                    startActivity(otherActivity);
+                    finish();
+                }else {
+                    Toast.makeText(DeleteActivity.this, name + " correctement supprimé", Toast.LENGTH_LONG).show();
+                    Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(otherActivity);
+                    finish();
+                }
             }
 
             @Override

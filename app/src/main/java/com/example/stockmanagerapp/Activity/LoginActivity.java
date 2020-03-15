@@ -16,6 +16,7 @@ import com.example.stockmanagerapp.Global;
 import com.example.stockmanagerapp.Network.RetrofitClient;
 import com.example.stockmanagerapp.R;
 import com.example.stockmanagerapp.Response.LoginResponse;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +25,8 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private String status;
-    private EditText editMail, editPassword;
+    private EditText editMail;
+    private TextInputLayout editPassword;
     private Button submitButton, buttonBack;
     private TextView textViewLog;
 
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         editMail = (EditText) findViewById(R.id.editMail);
-        editPassword= (EditText) findViewById(R.id.editPassword);
+        editPassword= findViewById(R.id.editPassword);
 
         submitButton = (Button) findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private  void userLogin(){
 
-        textViewLog = findViewById(R.id.textViewLog);
         String email = editMail.getText().toString().trim();
-        String password = editPassword.getText().toString().trim();
+        String password = editPassword.getEditText().getText().toString().trim();
 
 
         if (email.isEmpty()){
