@@ -3,6 +3,7 @@ package com.example.stockmanagerapp.Network;
 import com.example.stockmanagerapp.Class.Materials;
 import com.example.stockmanagerapp.Response.AddResponse;
 import com.example.stockmanagerapp.Response.LoginResponse;
+import com.example.stockmanagerapp.Response.RentResponse;
 
 import java.util.List;
 
@@ -36,7 +37,12 @@ public interface StockManagerApi {
     @POST("materials/create")
     Call<AddResponse> createMaterial(@Body Materials materials);
 
-
+    @FormUrlEncoded
+    @POST("materials/rent")
+    Call<RentResponse> rentMaterial(
+            @Field("Material_id") int Material_id,
+            @Field("User_id") int User_id
+    );
     @DELETE("materials/delete/{id}")
     Call<Void> deleteMaterials(@Path("id") int id);
 

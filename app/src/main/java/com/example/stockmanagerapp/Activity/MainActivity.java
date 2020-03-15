@@ -52,5 +52,16 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Button rent = findViewById(R.id.buttonrent);
+
+        rent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent otherActivity = new Intent(getApplicationContext(), RentActivity.class);
+                startActivity(otherActivity);
+                finish();
+            }
+        });
     }
 }

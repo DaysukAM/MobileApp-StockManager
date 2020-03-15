@@ -74,7 +74,7 @@ public class AddActivity extends AppCompatActivity {
         }
 
         if (desc.isEmpty()){
-            editDesc.setError("indiquez un mot de passe");
+            editDesc.setError("indiquez une description");
             editDesc.requestFocus();
             return;
         }

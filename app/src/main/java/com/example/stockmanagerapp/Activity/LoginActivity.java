@@ -71,7 +71,9 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Call<LoginResponse> call = RetrofitClient
-                .getInstance().getApi().userLogin(email, password);
+                .getInstance()
+                .getApi()
+                .userLogin(email, password);
 
         call.enqueue(new Callback<LoginResponse>() {
             @Override

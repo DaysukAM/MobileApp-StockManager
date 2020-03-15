@@ -3,7 +3,9 @@ package com.example.stockmanagerapp.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DeleteActivity extends AppCompatActivity {
+public class DeleteActivity extends AppCompatActivity implements AdapterView.onItemSelectedListener {
 
     Button deleteButton;
     Button buttonBack;
@@ -26,6 +28,9 @@ public class DeleteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
+
+        Spinner spinnerDelete = findViewById(R.id.spinnerDelete);
+        spinnerDelete.setOnItemSelectedListener(this);
 
         deleteButton = (Button) findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {

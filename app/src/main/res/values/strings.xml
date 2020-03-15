@@ -3,4 +3,11 @@
     <string name="welcome_msg">Bienvenue</string>
     <string name="button_list">Voir le matériel</string>
     <string name="count">clicks: 0</string>
+    <string-array name="Spinner_items">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>

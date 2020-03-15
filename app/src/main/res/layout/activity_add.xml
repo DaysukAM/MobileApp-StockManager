@@ -18,17 +18,6 @@
         app:layout_constraintTop_toBottomOf="@+id/editDesc"
         app:layout_constraintVertical_bias="0.215" />
 
-    <TextView
-        android:id="@+id/textViewLog"
-        android:layout_width="321dp"
-        android:layout_height="256dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/editName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.641" />
-
     <EditText
         android:id="@+id/editName"
         android:layout_width="wrap_content"
@@ -40,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
+        app:layout_constraintVertical_bias="0.275" />
 
     <EditText
         android:id="@+id/editDesc"
